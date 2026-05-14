@@ -19,9 +19,14 @@ class Bala {
     fill(255);
     rect(posX, posY, ancho, alto);
   }
-  
+
 
   void movimientoBala() {
     posY = posY - velocidad;
+  }
+
+  void limiteVertical() {
+    if (posY < 0)
+      viva = false;
   }
 }

@@ -2,7 +2,7 @@ ArrayList<Bala> balas = new ArrayList<Bala>();
 Enemigo enemigo;
 Personaje jugador;
 
-boolean isPressed = false;
+boolean estaPresionado = false;
 
 Bala pruebaBala = new Bala(200, 450, 2, 3, true, 1);
 
@@ -11,8 +11,10 @@ PImage animacionIzquierdaJugador[] = new PImage[3];
 PImage animacionIdle[] = new PImage[3];
 
 PImage animacionEnemigoIdle[] = new PImage[12];
+PImage animacionExplosion[] = new PImage[8];
 
-
+int frameActual = 0;
+int velocidadAnimacion = 3; // Más alto = animación más lenta.
 
 void setup() {
   size(540, 480);
@@ -29,14 +31,17 @@ void setup() {
     animacionEnemigoIdle[i] = loadImage("1enemy_" + i % 3 + ".png");
   }
 
+  for (int i = 0; i < animacionExplosion.length; i++) {
+    int idx = i + 1;
+    animacionExplosion[i] = loadImage("explosion-" + idx + ".png");
+  }
 
-
-  enemigo = new Enemigo(width/2 - 20, 100, 40, 20, true, animacionEnemigoIdle);
+  enemigo = new Enemigo(width/2 - 20, 100, 40, 20, true, animacionEnemigoIdle, animacionExplosion);
   jugador = new Personaje(width/2, height-100, 30, 40, animacionDerechaJugador, animacionIzquierdaJugador, animacionIdle, 5);
 }
 
 void draw() {
-
+  frameActual++;
   fondoJuego();
 
 
@@ -45,7 +50,6 @@ void draw() {
     bala.movimientoBala();
     bala.limiteVertical();
     enemigo.colision(bala);
- 
   }
   jugador.dibujarPersonaje();
   jugador.movimientoPersonaje();

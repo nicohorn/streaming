@@ -5,15 +5,15 @@ class Enemigo {
   int alto;
   PImage[] idle;
   PImage[] explosion;
-  boolean activa;
+  boolean activo;
 
 
-  Enemigo(int posX, int posY, int ancho, int alto, boolean activa, PImage[] idle, PImage[] explosion) {
+  Enemigo(int posX, int posY, int ancho, int alto, boolean activo, PImage[] idle, PImage[] explosion) {
     this.posX = posX;
     this.posY = posY;
     this.ancho = ancho;
     this.alto = alto;
-    this.activa = activa;
+    this.activo = activo;
     this.idle = idle;
     this.explosion = explosion;
   }
@@ -27,7 +27,8 @@ class Enemigo {
     boolean y2 = this.posY + this.alto >= bala.posY;
 
     if (x1 && x2 && y1 && y2) {
-      active = false;
+      activo = false;
+      bala.viva = false;
       return true;
     }
     return false;
@@ -35,18 +36,12 @@ class Enemigo {
 
   void dibujarEnemigo(boolean colisionExterna) {
     
-    if(colisionExterna && activa == true){
-    
-      for(){
-      
-      }
-      
-    }
+
 
     rect(posX, posY, ancho, alto);
-    for (int i = 0; i < idle.length; i++) {
 
-      image(idle[i], posX - 3, posY - 10);
-    }
+
+      image(idle[(frameActual/velocidadAnimacion) % idle.length], posX - 3, posY - 10);
+    
   }
 }
